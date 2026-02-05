@@ -16,6 +16,19 @@ if (len(sys.argv) - 1) != 1:
     print("This script requires 1 command line argument. Read the header and try again.")
     sys.exit()
 
+if not os.path.exists("logs"): os.makedirs("logs")
+song_not_found_log = "logs\\song_not_found_log.txt"
+if os.path.exists(song_not_found_log): os.remove(song_not_found_log)
+
+def write_line(file, line):
+    f = open(file, 'a')
+
+    line = line.strip('\r')
+    line = line.strip('\n')
+    line += '\n'
+    f.write(line)
+    f.close()
+
 path = sys.argv[1] #Top level directory path to rename. This script is recursive.
 
 #Database
@@ -44,4 +57,5 @@ for root, dirs, files in os.walk(path):
             result = cur.execute(sql, (songtitle,)).fetchall()
             
             if len(result) == 0:
-                print(filepathname + " :: " + songtitle)
+                print(filepathname + "|" + songtitle)
+                write_line(song_not_found_log, (filepathname + "|" + songtitle))

@@ -15,6 +15,7 @@ from pathlib import Path #pip install pathlib
 def traverse_directory(path):
     for root, dirs, files in os.walk(path):
         Folder = os.path.basename(root)
+        print (Folder)
         
         for file in files:
             filepathname = os.path.join(root, file)

@@ -20,7 +20,7 @@ import music_tag #pip install music-tag
 from pathlib import Path #pip install pathlib
 
 if (len(sys.argv) - 1) != 5:
-    print("This script requires 4 command line arguments.")
+    print("This script requires 5 command line arguments.")
     sys.exit()
 
 Drive = str(sys.argv[1])
@@ -46,6 +46,8 @@ song_not_found_log = "logs\\song_not_found_log.txt"
 if os.path.exists(song_not_found_log): os.remove(song_not_found_log)
 too_many_songs_log = "logs\\too_many_songs_log.txt"
 if os.path.exists(too_many_songs_log): os.remove(too_many_songs_log)
+title_not_equal_log = "logs\\title_not_equal_log.txt"
+if os.path.exists(title_not_equal_log): os.remove(title_not_equal_log)
 
 def write_line(file, line):
     f = open(file, 'a')
@@ -83,7 +85,9 @@ with open(infile, "r") as file:
             segue = " >"
 
         if SimpleSet == 1:
-            if audio['TITLE'] != (songtitle + segue): #Only write if it's different so I don't change the file date.
+            if str(audio['TITLE']) != (songtitle + segue): #Only write if it's different so I don't change the file date.
+                print(songfile + "|" + str(audio['TITLE']) + "|" + (songtitle + segue))
+                write_line(title_not_equal_log, songfile + "|" + str(audio['TITLE']) + "|" + (songtitle + segue))
                 audio['TITLE'] = songtitle + segue
                 audio.save()
 
@@ -115,7 +119,9 @@ with open(infile, "r") as file:
             write_line(date_not_found_log, songfile)
 
             #This usually means the date in the folder name has an XX or 00 in it, meaning unknown.
-            if audio['TITLE'] != (songtitle + segue): #Only write if it's different so I don't change the file date.
+            if str(audio['TITLE']) != (songtitle + segue): #Only write if it's different so I don't change the file date.
+                print(songfile + "|" + str(audio['TITLE']) + "|" + (songtitle + segue))
+                write_line(title_not_equal_log, songfile + "|" + str(audio['TITLE']) + "|" + (songtitle + segue))
                 audio['TITLE'] = songtitle + segue
                 audio.save()
 
@@ -138,7 +144,9 @@ with open(infile, "r") as file:
             write_line(skipped_log, songfile)
 
             #Similar to no date found, just use file.
-            if audio['TITLE'] != (songtitle + segue): #Only write if it's different so I don't change the file date.
+            if str(audio['TITLE']) != (songtitle + segue): #Only write if it's different so I don't change the file date.
+                print(songfile + "|" + str(audio['TITLE']) + "|" + (songtitle + segue))
+                write_line(title_not_equal_log, songfile + "|" + str(audio['TITLE']) + "|" + (songtitle + segue))
                 audio['TITLE'] = songtitle + segue
                 audio.save()
 
@@ -181,6 +189,8 @@ with open(infile, "r") as file:
             if row[1] == 1:
                 segue = " >" #Setting based on database, but coult have already been set based on file.
 
-        if audio['TITLE'] != (songtitle + segue): #Only write if it's different so I don't change the file date.
+        if str(audio['TITLE']) != (songtitle + segue): #Only write if it's different so I don't change the file date.
+            print(songfile + "|" + str(audio['TITLE']) + "|" + (songtitle + segue))
+            write_line(title_not_equal_log, songfile + "|" + str(audio['TITLE']) + "|" + (songtitle + segue))
             audio['TITLE'] = songtitle + segue
             audio.save()

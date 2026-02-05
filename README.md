@@ -1,5 +1,5 @@
 # **NOTE: THIS REPOSITORY IS OUT OF DATE
-I'm keeping it here because it could still be useful to someone initiating the tagging of a large Grateful Dead and/or Jerry Garcia library. Refer to Live-Music-Tagging repository instead.
+I'm keeping it here because it could still be useful to someone initiating the tagging of a large Grateful Dead and/or Jerry Garcia library. Refer to my Live-Music-Tagging repository instead.
 
 # **Grateful Dead and Jerry Garcia**
 Digitizing Grateful Dead data and making it freely available to all Deadheads.
